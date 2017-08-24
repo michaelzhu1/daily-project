@@ -27,8 +27,8 @@ button {
 }
 
 button:hover {
-	// background-color:
-	// border-color:
+	background-color: $dark-blue;
+	border-color: black;
 }
 
 /*
@@ -49,4 +49,8 @@ hr {
 .hr-top {
 	height: 2px;
 	margin-bottom: 1px;
+}
+
+.hidden {
+	display: none;
 }
