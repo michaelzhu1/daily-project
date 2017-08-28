@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicApp</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <% if logged_in? %>
+      <div>
+        Logged in as <%= current_user.email %>
+      </div>
+
+
+      <div>
+        <form action=" <%= session_url %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="hidden" name="authenticity_token" value=" <%=form_authenticity_token%>">
+          <label>Log out
+            <input type="submit" value="Sign out">
+          </label>
+
+        </form>
+      </div>
+      <% end %>
+    <%= yield %>
+  </body>
+</html>
