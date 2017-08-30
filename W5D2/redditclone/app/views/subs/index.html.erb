@@ -1,0 +1,8 @@
+<h1>All Subs</h1>
+<% if @subs %>
+  <% @subs.each do |sub| %>
+  <li><%= link_to sub.name, sub_url(sub) %>
+  </li>
+
+  <% end %>
+<% end %>
