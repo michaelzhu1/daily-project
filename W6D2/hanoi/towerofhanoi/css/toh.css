@@ -1,0 +1,21 @@
+figure {
+  display: flex;
+  justify-content: space-around;
+  height: 200px;
+}
+ul {
+  display: flex;
+  border-bottom: solid;
+  margin: 10px;
+  width: 100px;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+}
+
+li {
+  border-style: groove;
+  border-width: thick;
+  justify-content: space-around;
+  display: flex;
+  height: 30px;
+}
