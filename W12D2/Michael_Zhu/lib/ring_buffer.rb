@@ -8,6 +8,7 @@ class RingBuffer
     @store = StaticArray.new(0)
     @start_idx = 0
     @capacity = size
+    @last = 0
   end
 
   # O(1)
@@ -37,6 +38,7 @@ class RingBuffer
     if @length == @capacity
       self.resize!
     end
+    @last = val
     @store[self.check_index(@length)] = val
     @length += 1
   end
@@ -62,6 +64,10 @@ class RingBuffer
     @store[@start_idx] = val
   end
 
+  def last
+    @last
+  end
+
   protected
   attr_accessor :capacity, :start_idx, :store
   attr_writer :length
@@ -81,5 +87,6 @@ class RingBuffer
     @start_idx = 0
     @store = new_store
   end
+
 
 end
