@@ -76,7 +76,7 @@ class DynamicArray
     new_store = StaticArray.new(@capacity*2)
     i = 0
     while i < @length
-      new_store[i] = @store[(@start_index + i) % capacity]
+      new_store[i] = @store[(@start_index + i) % @capacity]
       i += 1
     end
     @capacity *= 2
