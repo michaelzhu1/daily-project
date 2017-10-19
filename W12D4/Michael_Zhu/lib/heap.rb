@@ -56,8 +56,8 @@ class BinaryMinHeap
         end
         array[parent_idx], array[to_swap] = array[to_swap], array[parent_idx]
       end
-      BinaryMinHeap.heapify_down(array, to_swap, &prc)
-      array
+    BinaryMinHeap.heapify_down(array, to_swap, &prc)
+    array
   end
 
   def self.heapify_up(array, child_idx, len = array.length, &prc)
