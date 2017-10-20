@@ -13,17 +13,19 @@ class QuickSort
 
   # In-place.
   def self.sort2!(array, start = 0, length = array.length, &prc)
-    prc = Proc.new { |x, y| x <=> y}
-    if length > 1
+    prc ||= Proc.new { |x, y| x <=> y}
+    unless length <= 1
       new_pivot_position = self.partition(array, start, length, &prc)
+
       self.sort2!(array, start, new_pivot_position-start, &prc)
+
       self.sort2!(array, new_pivot_position + 1, length - new_pivot_position - 1,&prc)
     end
     array
   end
 
   def self.partition(array, start, length, &prc)
-    prc = Proc.new {|x,y| x <=> y}
+    prc ||= Proc.new {|x,y| x <=> y}
     pivot = array[start]
     correct_index = start
     ((start+1)..(start + length-1)).each do |i|
@@ -34,7 +36,6 @@ class QuickSort
     end
     array[correct_index], array[start] =
      array[start], array[correct_index]
-    p array
     correct_index
   end
 end
