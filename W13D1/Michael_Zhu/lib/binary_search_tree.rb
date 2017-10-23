@@ -30,45 +30,8 @@ class BinarySearchTree
 
   def delete(value)
     # byebug
-    node = self.find(value)
-    return nil unless node
-
-    if value < node.value
-      node.left = BinarySearchTree.delete!(node.left, value)
-    elsif value > node.value
-      node.right = BinarySearchTree.delete!(node.right, value)
-    else
-      return node.left unless node.right
-      return node.right unless node.left
-      t = node
-      node = BinarySearchTree.min(t.right)
-      node.right = BinarySearchTree.delete_min!(t.right)
-      node.left = t.left
-    end
-
-    node
+    @root = delete_tree_node(@root, value)
   end
-  def self.max(node)
-  return nil unless node
-  return node unless node.right
-
-  BinarySearchTree.max(node.right)
-end
-
-def self.min(node)
-  return nil unless node
-  return node unless node.left
-
-  BinarySearchTree.min(node.left)
-end
-
-def self.delete_min!(node)
-  return nil unless node
-  return node.right unless node.left
-
-  node.left = BinarySearchTree.delete_min!(node.left)
-  node
-end
 
   # helper method for #delete:
   def maximum(tree_node = @root)
@@ -113,5 +76,45 @@ end
       node.right = self.recur_insert!(node.right, value)
     end
     node
+  end
+
+  def delete_node(node)
+    if node.left.nil? && node.right.nil?
+      node = nil
+    elsif node.left && node.right.nil?
+      node = node.left
+    elsif node.left.nil? && node.right
+      node = node.right
+    else
+      max_node = maximum(node.left)
+      if max_node.left
+        promote_child(node.left)
+      end
+      max_node.left = node.left
+      max_node.right = node.right
+      max_node
+    end
+  end
+
+  def delete_tree_node(tree_node, value)
+    if value == tree_node.value
+      tree_node = delete_node(tree_node)
+    elsif value <= tree_node.value
+      tree_node.left = delete_tree_node(tree_node.left, value)
+    else
+      tree_node.right = delete_tree_node(tree_node.right, value)
+    end
+    tree_node
+  end
+
+
+  def promote_child(tree_node)
+    if tree_node.right
+      current_parent = tree_node
+      new_max_node = maximum(tree_node.right)
+    else
+      return tree_node
+    end
+    current_parent.right = new_max_node.left
   end
 end
