@@ -8,8 +8,19 @@
 # Import any files you need to
 require 'graph'
 require 'topological_sort'
-
+require 'byebug'
 
 def install_order(arr)
-
+  arr_uniq = arr.flatten.uniq
+  vertices = {}
+  (1..arr_uniq.max).each do |vertex|
+    vertices[vertex] = Vertex.new(vertex)
+  end
+  # byebug
+  arr.each do |node|
+    from_vertex = vertices[node[0]]
+    to_vertex = vertices[node[1]]
+    Edge.new(from_vertex,to_vertex)
+  end
+  topological_sort(vertices.values).reverse.map { |v| v.value}
 end
